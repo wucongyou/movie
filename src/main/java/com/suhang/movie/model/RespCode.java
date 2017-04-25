@@ -36,7 +36,7 @@ public enum RespCode {
     ROLE_NOT_EXISTS(-1003, "role not exists"),
     PERMISSION_NOT_EXISTS(-1004, "permission not exists"),
 
-    CLIENT_NOT_EXISTS(-1101, "client not exists"),
+    MOVIE_NOT_EXISTS(-1101, "movie not exists"),
 
     SERVICE_NOT_EXISTS(-1201, "service not exists"),
     SERVICE_NAME_ALREADY_EXISTS(-1202, "service name already exists"),;
