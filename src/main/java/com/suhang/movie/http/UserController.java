@@ -20,11 +20,25 @@ import com.suhang.movie.service.UserService;
  * @since 2017-04-25 下午9:34
  */
 @Controller("userController")
-@RequestMapping(value = "/user", produces = "application/json")
+@RequestMapping(value = "/user/", produces = "application/json")
 public class UserController {
 
     @Resource
     private UserService userService;
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Resp update(User user) {
+        userService.update(user);
+        return Resp.OK;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Resp delete(@RequestParam String username) {
+        userService.delete(username);
+        return Resp.OK;
+    }
 
     @RequestMapping(value = "info", method = RequestMethod.GET)
     @ResponseBody
