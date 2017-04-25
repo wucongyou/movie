@@ -40,3 +40,20 @@ CREATE TABLE `movie` (
   PRIMARY KEY (`id`)
 )
   COMMENT = '电影表';
+
+CREATE TABLE `favorite` (
+  `user_id`  BIGINT(11) UNSIGNED NOT NULL
+  COMMENT '用户id',
+  `movie_id` BIGINT(11) UNSIGNED NOT NULL
+  COMMENT '电影id',
+  `status`   TINYINT(4)          NOT NULL DEFAULT 0
+  COMMENT '状态: 0:已生效 1:已删除',
+  `ctime`    TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  `mtime`    TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '修改时间',
+  PRIMARY KEY (`user_id`, `movie_id`),
+  KEY `idx_favorite_user_id`(`user_id`),
+  KEY `idx_favorite_movie_id`(`movie_id`)
+)
+  COMMENT = '收藏表';

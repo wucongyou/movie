@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.RandomUtils;
 
+import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.User;
 
@@ -12,6 +13,13 @@ import com.suhang.movie.model.User;
  * @since 2017-04-25 下午8:49
  */
 public abstract class MockContext {
+
+    protected Favorite mockFavorite() {
+        Favorite favorite = new Favorite();
+        favorite.setMovieId(mockLong());
+        favorite.setUserId(mockLong());
+        return favorite;
+    }
 
     protected Movie mockMovie() {
         return Movie.builder().name(mockStr(6))
