@@ -25,3 +25,23 @@ CREATE TABLE `user` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COMMENT = '用户表';
+
+CREATE TABLE `movie` (
+  `id`          BIGINT(11) UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '自增id',
+  `name`        VARCHAR(50)         NOT NULL
+  COMMENT '名称',
+  `description` VARCHAR(255)
+  COMMENT '描述',
+  `status`      TINYINT(4)          NOT NULL DEFAULT 0
+  COMMENT '状态: 0:已生效 4:已删除',
+  `ctime`       TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  `mtime`       TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COMMENT = '电影表';

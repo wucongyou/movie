@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class User implements Serializable {
 
+    private static final long serialVersionUID = -2728364225017596124L;
+
     private Long id;
     private String username;
     @JsonIgnore
