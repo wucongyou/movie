@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.suhang.movie.dao.UserDao;
+import com.suhang.movie.model.BinaryStatus;
 import com.suhang.movie.model.RespCode;
 import com.suhang.movie.model.User;
 import com.suhang.movie.util.PasswordUtil;
@@ -38,16 +39,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         checkArgument(user.identifiable(), "user id or username cannot be both null");
+        User u;
         if (user.getId() != null) {
             checkUserId(user.getId());
-            checkState(findById(user.getId()) != null, RespCode.USER_NOT_EXISTS);
+            u = findById(user.getId());
         } else {
-            User u = findByUsername(user.getUsername());
-            checkState(u != null, RespCode.USER_NOT_EXISTS);
-            user.setId(u.getId());
+            checkUsername(user);
+            u = findByUsername(user.getUsername());
         }
         checkArgument(user.getPassword() != null || user.getStatus() != null, "nothing to update, now supports status and password update");
         checkArgument(user.statusValid(), "invalid user status");
+        if (BinaryStatus.OK != BinaryStatus.of(user.getStatus())) {
+            checkState(u != null, RespCode.USER_NOT_EXISTS);
+        }
         if (user.getPassword() != null) {
             checkPassword(user);
             PasswordUtil.encryptPassword(user);

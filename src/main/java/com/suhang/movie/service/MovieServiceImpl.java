@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.suhang.movie.dao.MovieDao;
+import com.suhang.movie.model.BinaryStatus;
 import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.Query;
 import com.suhang.movie.model.RespCode;
@@ -39,7 +40,9 @@ public class MovieServiceImpl implements MovieService {
     public void update(Movie movie) {
         checkMovieId(movie.getId());
         checkArgument(movie.getName() != null || movie.getDescription() != null || movie.getStatus() != null, "movie name, description, status cannot be all null");
-        checkState(findById(movie.getId()) != null, RespCode.MOVIE_NOT_EXISTS);
+        if (BinaryStatus.OK != BinaryStatus.of(movie.getStatus())) {
+            checkState(findById(movie.getId()) != null, RespCode.MOVIE_NOT_EXISTS);
+        }
         if (movie.getName() != null) {
             checkMovieName(movie);
         }

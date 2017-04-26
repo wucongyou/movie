@@ -17,7 +17,10 @@ public enum BinaryStatus {
         this.desc = desc;
     }
 
-    public static BinaryStatus of(int code) {
+    public static BinaryStatus of(Integer code) {
+        if (code == null) {
+            return null;
+        }
         for (BinaryStatus binaryStatus : BinaryStatus.values()) {
             if (binaryStatus.code == code) {
                 return binaryStatus;
