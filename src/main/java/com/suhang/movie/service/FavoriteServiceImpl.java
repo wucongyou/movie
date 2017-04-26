@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.suhang.movie.dao.FavoriteDao;
+import com.suhang.movie.dao.MovieDao;
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.FavoriteQuery;
 import com.suhang.movie.model.RespCode;
@@ -24,9 +25,13 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Resource
     private FavoriteDao favoriteDao;
 
+    @Resource
+    private MovieDao movieDao;
+
     @Override
     public void create(Favorite favorite) {
         checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        checkState(movieDao.findById(favorite.getMovieId()) != null, RespCode.MOVIE_NOT_EXISTS);
         int res = favoriteDao.create(favorite);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
