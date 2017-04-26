@@ -39,6 +39,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void delete(Favorite favorite) {
         checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        checkState(favoriteDao.findById(favorite) != null, RespCode.MOVIE_NOT_IN_FAVORITES);
         int res = favoriteDao.delete(favorite);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }

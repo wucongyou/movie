@@ -37,6 +37,7 @@ public enum RespCode {
     PERMISSION_NOT_EXISTS(-1004, "permission not exists"),
 
     MOVIE_NOT_EXISTS(-1101, "movie not exists"),
+    MOVIE_NOT_IN_FAVORITES(-1102, "movie not in favorites"),
 
     SERVICE_NOT_EXISTS(-1201, "service not exists"),
     SERVICE_NAME_ALREADY_EXISTS(-1202, "service name already exists"),;

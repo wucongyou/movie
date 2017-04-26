@@ -1,6 +1,7 @@
 package com.suhang.movie.http;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.FavoriteQuery;
+import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.Resp;
+import com.suhang.movie.model.User;
 import com.suhang.movie.service.FavoriteService;
+import com.suhang.movie.service.MovieService;
+import com.suhang.movie.service.UserService;
 import com.suhang.movie.util.LoginUtil;
 
 /**
@@ -26,6 +31,12 @@ public class FavoriteController {
 
     @Resource
     private FavoriteService favoriteService;
+
+    @Resource
+    private MovieService movieService;
+
+    @Resource
+    private UserService userService;
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
@@ -57,8 +68,10 @@ public class FavoriteController {
         query.setLastId(lastId);
         query.setLimit(limit);
         query.setUserId(userId);
-        List<Favorite> favorites = favoriteService.query(query);
-        return Resp.ok(favorites);
+        List<Movie> movies = favoriteService.query(query).stream()
+            .map(movieFav -> movieService.findById(movieFav.getMovieId()))
+            .collect(Collectors.toList());
+        return Resp.ok(movies);
     }
 
     @RequestMapping(value = "collect", method = RequestMethod.GET)
@@ -68,7 +81,9 @@ public class FavoriteController {
         query.setLastId(lastId);
         query.setLimit(limit);
         query.setMovieId(movieId);
-        List<Favorite> favorites = favoriteService.query(query);
-        return Resp.ok(favorites);
+        List<User> users = favoriteService.query(query).stream()
+            .map(userFav -> userService.findById(userFav.getUserId()))
+            .collect(Collectors.toList());
+        return Resp.ok(users);
     }
 }
