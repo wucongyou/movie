@@ -1,4 +1,4 @@
-package com.suhang.movie.service;
+package com.suhang.movie.util;
 
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -6,40 +6,34 @@ import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.stereotype.Service;
 
 import com.suhang.movie.model.User;
 
 /**
  * @author hang.su
- * @since 2017-04-25 下午8:57
+ * @since 2017-04-26 下午6:52
  */
-@Service("passwordService")
-public class PasswordServiceImpl implements PasswordService {
+public final class PasswordUtil {
 
-    private String algorithmName = "SHA-256";
+    private static final int HASH_ITERATIONS = 10000;
+    private static final RandomNumberGenerator RANDOM_NUMBER_GENERATOR = new SecureRandomNumberGenerator();
+    private static final String ALGORITHM_NAME = "SHA-256";
 
-    private int hashIterations = 10000;
-
-    private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-
-    @Override
-    public void encryptPassword(User user) {
-        user.setSalt(randomNumberGenerator.nextBytes().toHex());
+    public static void encryptPassword(User user) {
+        user.setSalt(RANDOM_NUMBER_GENERATOR.nextBytes().toHex());
         Hash hash = new SimpleHash(
-            algorithmName,
+            ALGORITHM_NAME,
             user.getPassword(),
             ByteSource.Util.bytes(user.getCredentialsSalt()),
-            hashIterations);
+            HASH_ITERATIONS);
         user.setPassword(hash.toHex());
     }
 
-    @Override
     public boolean passwordMatches(String plaintext, User user) {
-        Hash computed = new SimpleHash(algorithmName,
+        Hash computed = new SimpleHash(ALGORITHM_NAME,
             plaintext,
             ByteSource.Util.bytes(user.getCredentialsSalt()),
-            hashIterations);
+            HASH_ITERATIONS);
         return computed.equals(Sha256Hash.fromHexString(user.getPassword()));
     }
 }

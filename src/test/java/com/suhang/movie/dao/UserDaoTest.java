@@ -34,8 +34,8 @@ public class UserDaoTest extends BaseTestContext {
     public void update() throws Exception {
         int res = userDao.update(User.builder()
             .id(1L)
-            .password("new hashed password")
-            .salt("new private salt")
+            .password(mockStr(64))
+            .salt(mockStr(32))
             .build());
         assertTrue(res > 0);
     }

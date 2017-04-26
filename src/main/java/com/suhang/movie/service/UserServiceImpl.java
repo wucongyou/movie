@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.suhang.movie.dao.UserDao;
 import com.suhang.movie.model.RespCode;
 import com.suhang.movie.model.User;
+import com.suhang.movie.util.PasswordUtil;
 
 /**
  * @author hang.su
@@ -21,17 +22,13 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
-    @Resource
-    private PasswordService passwordService;
-
-
     @Override
     public void create(User user) {
         checkArgument(user.getUsername() != null, "username cannot be null");
         checkArgument(user.getPassword() != null, "password cannot be null");
         // TODO improve username validation check
         checkState(findByUsername(user.getUsername()) == null, RespCode.USERNAME_ALREADY_EXISTS);
-        passwordService.encryptPassword(user);
+        PasswordUtil.encryptPassword(user);
         userDao.create(user);
     }
 
@@ -49,7 +46,7 @@ public class UserServiceImpl implements UserService {
         checkArgument(user.statusValid(), "invalid user status");
         if (user.getPassword() != null) {
             // TODO check password validation
-            passwordService.encryptPassword(user);
+            PasswordUtil.encryptPassword(user);
         }
         userDao.update(user);
     }

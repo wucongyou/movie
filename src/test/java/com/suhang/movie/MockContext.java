@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RandomUtils;
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.User;
+import com.suhang.movie.util.PasswordUtil;
 
 /**
  * @author hang.su
@@ -28,11 +29,12 @@ public abstract class MockContext {
     }
 
     protected User mockUser() {
-        return User.builder()
-            .username("John")
-            .password(mockStr(8))
-            .salt(mockStr(10))
+        User user = User.builder()
+            .username("user_" + mockStr(6))
+            .password("123")
             .build();
+        PasswordUtil.encryptPassword(user);
+        return user;
     }
 
     protected String mockUUID() {
