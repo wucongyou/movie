@@ -1,5 +1,7 @@
 package com.suhang.movie.http;
 
+import static com.suhang.movie.util.CheckUtil.checkState;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.Query;
 import com.suhang.movie.model.Resp;
+import com.suhang.movie.model.RespCode;
 import com.suhang.movie.service.MovieService;
 
 /**
@@ -56,7 +59,9 @@ public class MovieController {
     @RequestMapping(value = "info", method = RequestMethod.GET)
     @ResponseBody
     public Resp info(@RequestParam Long id) {
-        return Resp.ok(movieService.findById(id));
+        Movie movie = movieService.findById(id);
+        checkState(movie != null, RespCode.MOVIE_NOT_EXISTS);
+        return Resp.ok(movie);
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)

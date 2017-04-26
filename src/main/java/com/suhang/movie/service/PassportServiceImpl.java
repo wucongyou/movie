@@ -35,7 +35,6 @@ public class PassportServiceImpl implements PassportService {
         token.setRememberMe(rememberMe);
         try {
             subject.login(token);
-            // TODO write _sid to cookie at common domain of site
         } catch (UnknownAccountException | IncorrectCredentialsException e) {
             throw new ServiceException(RespCode.INCORRECT_ACCOUNT_OR_PASSWORD);
         } catch (LockedAccountException e) {

@@ -16,16 +16,6 @@ public enum RespCode {
     USER_ALREADY_LOGIN(-106, "user already login"),
     UNKNOWN_AUTHENTICATION_ERROR(-107, "unknown authentication error"),
 
-    INVALID_CLIENT(-201, "invalid client"),
-    UNAUTHORIZED_CLIENT(-202, "unauthorized client"),
-    INVALID_AUTHORIZATION_CODE(-203, "invalid authorization code"),
-    UNSUPPORTED_GRANT_TYPE(-204, "unsupported grant type"),
-    NEED_REDIRECT_URI(-205, "need redirect uri"),
-    UNKNOWN_OAUTH_PROBLEM(-206, "unknown oauth problem"),
-
-    INVALID_SERVICE(-301, "invalid service"),
-    INVALID_SSO_TOKEN(-302, "invalid sso token"),
-
     WRONG_ARGUMENT(-400, "wrong argument"),
     SERVER_ERROR(-500, "server error"),
 
@@ -33,14 +23,9 @@ public enum RespCode {
 
     USERNAME_ALREADY_EXISTS(-1001, "username already exists"),
     USER_NOT_EXISTS(-1002, "user not exists"),
-    ROLE_NOT_EXISTS(-1003, "role not exists"),
-    PERMISSION_NOT_EXISTS(-1004, "permission not exists"),
 
     MOVIE_NOT_EXISTS(-1101, "movie not exists"),
-    MOVIE_NOT_IN_FAVORITES(-1102, "movie not in favorites"),
-
-    SERVICE_NOT_EXISTS(-1201, "service not exists"),
-    SERVICE_NAME_ALREADY_EXISTS(-1202, "service name already exists"),;
+    MOVIE_NOT_IN_FAVORITES(-1102, "movie not in favorites");
 
     public int code;
     public String message;

@@ -22,6 +22,10 @@ public class Movie implements Serializable {
         return new Builder();
     }
 
+    public boolean statusValid() {
+        return status == null || BinaryStatus.of(status) != null;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +

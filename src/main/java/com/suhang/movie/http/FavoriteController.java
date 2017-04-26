@@ -60,7 +60,7 @@ public class FavoriteController {
         return Resp.OK;
     }
 
-    @RequestMapping(value = "favorites")
+    @RequestMapping(value = "favorites", method = RequestMethod.GET)
     @ResponseBody
     public Resp favorites(@RequestParam("last_id") Long lastId, @RequestParam Integer limit) {
         Long userId = LoginUtil.getLoginUserId();

@@ -27,6 +27,10 @@ public class User implements Serializable {
         return new Builder();
     }
 
+    public boolean identifiable() {
+        return id != null || username != null;
+    }
+
     public boolean statusValid() {
         return status == null || BinaryStatus.of(status) != null;
     }

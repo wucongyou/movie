@@ -2,6 +2,9 @@ package com.suhang.movie.service;
 
 import static com.suhang.movie.util.CheckUtil.checkArgument;
 import static com.suhang.movie.util.CheckUtil.checkState;
+import static com.suhang.movie.util.Validator.checkPassword;
+import static com.suhang.movie.util.Validator.checkUserId;
+import static com.suhang.movie.util.Validator.checkUsername;
 
 import javax.annotation.Resource;
 
@@ -24,18 +27,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) {
-        checkArgument(user.getUsername() != null, "username cannot be null");
-        checkArgument(user.getPassword() != null, "password cannot be null");
-        // TODO improve username validation check
+        checkUsername(user);
+        checkPassword(user);
         checkState(findByUsername(user.getUsername()) == null, RespCode.USERNAME_ALREADY_EXISTS);
         PasswordUtil.encryptPassword(user);
-        userDao.create(user);
+        int res = userDao.create(user);
+        checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
     public void update(User user) {
-        checkArgument(user.getId() != null || user.getUsername() != null, "uid or username cannot be both null");
+        checkArgument(user.identifiable(), "user id or username cannot be both null");
         if (user.getId() != null) {
+            checkUserId(user.getId());
             checkState(findById(user.getId()) != null, RespCode.USER_NOT_EXISTS);
         } else {
             User u = findByUsername(user.getUsername());
@@ -45,32 +49,39 @@ public class UserServiceImpl implements UserService {
         checkArgument(user.getPassword() != null || user.getStatus() != null, "nothing to update, now supports status and password update");
         checkArgument(user.statusValid(), "invalid user status");
         if (user.getPassword() != null) {
-            // TODO check password validation
+            checkPassword(user);
             PasswordUtil.encryptPassword(user);
         }
-        userDao.update(user);
+        int res = userDao.update(user);
+        checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
-    public void delete(Long uid) {
-        checkState(findById(uid) != null, RespCode.USER_NOT_EXISTS);
-        userDao.delete(uid);
+    public void delete(Long id) {
+        checkUserId(id);
+        checkState(findById(id) != null, RespCode.USER_NOT_EXISTS);
+        int res = userDao.delete(id);
+        checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
     public void delete(String username) {
+        checkUsername(username);
         User user = findByUsername(username);
         checkState(user != null, RespCode.USER_NOT_EXISTS);
-        userDao.delete(user.getId());
+        int res = userDao.delete(user.getId());
+        checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
-    public User findById(Long uid) {
-        return userDao.findById(uid);
+    public User findById(Long id) {
+        checkUserId(id);
+        return userDao.findById(id);
     }
 
     @Override
     public User findByUsername(String username) {
+        checkUsername(username);
         return userDao.findByUsername(username);
     }
 }

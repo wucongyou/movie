@@ -1,6 +1,6 @@
 package com.suhang.movie.service;
 
-import static com.suhang.movie.util.CheckUtil.checkArgument;
+import static com.suhang.movie.util.Validator.checkUserId;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +32,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public List<Movie> recommend(Long userId) {
-        checkArgument(userId != null && userId > 0L, "invalid user id");
+        checkUserId(userId);
         Set<Long> myMovieIds = favoriteDao.findByUserId(userId).stream()
             .map(Favorite::getMovieId)
             .collect(Collectors.toSet());

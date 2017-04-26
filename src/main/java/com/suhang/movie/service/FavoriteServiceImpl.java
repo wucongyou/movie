@@ -2,6 +2,10 @@ package com.suhang.movie.service;
 
 import static com.suhang.movie.util.CheckUtil.checkArgument;
 import static com.suhang.movie.util.CheckUtil.checkState;
+import static com.suhang.movie.util.Validator.checkFavoriteId;
+import static com.suhang.movie.util.Validator.checkMovieId;
+import static com.suhang.movie.util.Validator.checkQuery;
+import static com.suhang.movie.util.Validator.checkUserId;
 
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void create(Favorite favorite) {
-        checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        checkFavoriteId(favorite);
         checkState(movieDao.findById(favorite.getMovieId()) != null, RespCode.MOVIE_NOT_EXISTS);
         int res = favoriteDao.create(favorite);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
@@ -38,7 +42,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void delete(Favorite favorite) {
-        checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        checkFavoriteId(favorite);
         checkState(favoriteDao.findById(favorite) != null, RespCode.MOVIE_NOT_IN_FAVORITES);
         int res = favoriteDao.delete(favorite);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
@@ -46,26 +50,31 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public Favorite findById(Favorite favorite) {
-        checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        checkFavoriteId(favorite);
         return favoriteDao.findById(favorite);
     }
 
     @Override
     public List<Favorite> findByUserId(Long userId) {
+        checkUserId(userId);
         return favoriteDao.findByUserId(userId);
     }
 
     @Override
     public List<Favorite> findByMovieId(Long movieId) {
+        checkMovieId(movieId);
         return favoriteDao.findByMovieId(movieId);
     }
 
     @Override
     public List<Favorite> query(FavoriteQuery query) {
-        checkArgument(query.getLastId() != null && query.getLastId() >= 0L, "last id cannot be null or negative");
-        checkArgument(query.getLimit() != null, "limit cannot be null");
-        checkArgument(query.getUserId() != null || query.getMovieId() != null, "user id and movie id cannot be both null");
-        checkArgument(query.getUserId() == null || query.getMovieId() == null, "user id and movie id cannot be both non null");
+        checkQuery(query);
+        checkArgument(onlyOneExist(query), "user id and movie id can only exist one");
+        query.ensureNotExceedMaxLimit();
         return favoriteDao.query(query);
+    }
+
+    private boolean onlyOneExist(FavoriteQuery query) {
+        return (query.getUserId() != null && query.getMovieId() == null) || (query.getUserId() == null && query.getMovieId() != null);
     }
 }
