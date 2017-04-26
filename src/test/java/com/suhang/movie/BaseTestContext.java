@@ -15,5 +15,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(transactionManager = "transactionManager")
 @Rollback
 public abstract class BaseTestContext extends MockContext {
-
+    
 }
