@@ -71,11 +71,4 @@ public class FavoriteController {
         List<Favorite> favorites = favoriteService.query(query);
         return Resp.ok(favorites);
     }
-
-    @RequestMapping(value = "recommend", method = RequestMethod.GET)
-    @ResponseBody
-    public Resp recommend() {
-        Long userId = LoginUtil.getLoginUserId();
-        return Resp.OK;
-    }
 }
