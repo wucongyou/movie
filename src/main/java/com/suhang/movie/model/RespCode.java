@@ -25,6 +25,7 @@ public enum RespCode {
     USER_NOT_EXISTS(-1002, "user not exists"),
 
     MOVIE_NOT_EXISTS(-1101, "movie not exists"),
+    MOVIE_ALREADY_IN_FAVORITES(-1103, "movie already in favorites"),
     MOVIE_NOT_IN_FAVORITES(-1102, "movie not in favorites");
 
     public int code;

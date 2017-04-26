@@ -36,6 +36,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     public void create(Favorite favorite) {
         checkFavoriteId(favorite);
         checkState(movieDao.findById(favorite.getMovieId()) != null, RespCode.MOVIE_NOT_EXISTS);
+        checkState(favoriteDao.findById(favorite) == null, RespCode.MOVIE_ALREADY_IN_FAVORITES);
         int res = favoriteDao.create(favorite);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
