@@ -3,6 +3,8 @@ package com.suhang.movie.dao;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Assert;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import com.suhang.movie.BaseTestContext;
 import com.suhang.movie.model.Movie;
+import com.suhang.movie.model.Query;
 
 /**
  * @author hang.su
@@ -47,6 +50,15 @@ public class MovieDaoTest extends BaseTestContext {
     public void findById() throws Exception {
         Movie movie = movieDao.findById(1L);
         assertNotNull(movie);
+    }
+
+    @Test
+    public void query() throws Exception {
+        Query query = new Query();
+        query.setLastId(0L);
+        query.setLimit(10);
+        List<Movie> movies = movieDao.query(query);
+        assertTrue(movies.size() > 0);
     }
 
 }

@@ -3,6 +3,8 @@ package com.suhang.movie.service;
 import static com.suhang.movie.util.CheckUtil.checkArgument;
 import static com.suhang.movie.util.CheckUtil.checkState;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.suhang.movie.dao.MovieDao;
 import com.suhang.movie.model.Movie;
+import com.suhang.movie.model.Query;
 import com.suhang.movie.model.RespCode;
 
 /**
@@ -18,6 +21,8 @@ import com.suhang.movie.model.RespCode;
  */
 @Service("movieService")
 public class MovieServiceImpl implements MovieService {
+
+    private static final Integer MAX_LIMIT = 20;
 
     @Resource
     private MovieDao movieDao;
@@ -37,15 +42,27 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void delete(Movie movie) {
-        checkArgument(movie.getId() != null, "movie id cannot be null");
-        checkState(findById(movie.getId()) != null, RespCode.MOVIE_NOT_EXISTS);
-        int res = movieDao.delete(movie.getId());
+    public void delete(Long id) {
+        checkArgument(id != null, "movie id cannot be null");
+        checkState(findById(id) != null, RespCode.MOVIE_NOT_EXISTS);
+        int res = movieDao.delete(id);
         checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
     public Movie findById(Long id) {
+        checkArgument(id != null, "movie id cannot be null");
         return movieDao.findById(id);
+    }
+
+    @Override
+    public List<Movie> query(Query query) {
+        checkArgument(query.getLastId() != null && query.getLastId() >= 0L, "last id cannot be null or negative");
+        checkArgument(query.getLimit() != null, "limit cannot be null");
+        if (query.getLimit() > MAX_LIMIT) {
+            query.setLimit(MAX_LIMIT);
+        }
+        List<Movie> movies = movieDao.query(query);
+        return movies;
     }
 }

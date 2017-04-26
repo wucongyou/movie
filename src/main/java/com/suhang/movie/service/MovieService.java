@@ -1,5 +1,8 @@
 package com.suhang.movie.service;
 
+import java.util.List;
+
+import com.suhang.movie.model.Query;
 import com.suhang.movie.model.Movie;
 
 /**
@@ -12,7 +15,9 @@ public interface MovieService {
 
     void update(Movie movie);
 
-    void delete(Movie movie);
+    void delete(Long id);
 
     Movie findById(Long id);
+
+    List<Movie> query(Query query);
 }

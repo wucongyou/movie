@@ -60,4 +60,11 @@
         WHERE id = #{id} AND status = 0
     </select>
 
+    <select id="query" parameterType="query" resultMap="RM-MOVIE">
+        SELECT
+        <include refid="COLS-MOVIE"/>
+        FROM movie
+        WHERE id > #{lastId} AND status = 0 limit #{limit}
+    </select>
+
 </mapper>

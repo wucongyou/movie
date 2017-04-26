@@ -22,6 +22,18 @@ public class Movie implements Serializable {
         return new Builder();
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", status=" + status +
+            ", ctime=" + ctime +
+            ", mtime=" + mtime +
+            '}';
+    }
+
     public Long getId() {
         return id;
     }

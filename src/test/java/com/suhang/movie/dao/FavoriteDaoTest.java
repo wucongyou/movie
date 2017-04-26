@@ -1,6 +1,7 @@
 package com.suhang.movie.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import com.suhang.movie.BaseTestContext;
 import com.suhang.movie.model.Favorite;
+import com.suhang.movie.model.FavoriteQuery;
 
 /**
  * @author hang.su
@@ -40,6 +42,15 @@ public class FavoriteDaoTest extends BaseTestContext {
     }
 
     @Test
+    public void findById() throws Exception {
+        Favorite query = new Favorite();
+        query.setUserId(1L);
+        query.setMovieId(1L);
+        Favorite favorite = favoriteDao.findById(query);
+        assertNotNull(favorite);
+    }
+
+    @Test
     public void findByUserId() throws Exception {
         List<Favorite> favorites = favoriteDao.findByUserId(1L);
         assertEquals(2, favorites.size());
@@ -49,5 +60,20 @@ public class FavoriteDaoTest extends BaseTestContext {
     public void findByMovieId() throws Exception {
         List<Favorite> favorites = favoriteDao.findByMovieId(1L);
         assertEquals(2, favorites.size());
+    }
+
+    @Test
+    public void query() throws Exception {
+        FavoriteQuery query = new FavoriteQuery();
+        query.setLastId(0L);
+        query.setLimit(10);
+        query.setUserId(1L);
+        query.setMovieId(1L);
+        List<Favorite> favorites = favoriteDao.query(query);
+        assertTrue(favorites.size() > 0);
+        query.setUserId(null);
+        query.setMovieId(1L);
+        favorites = favoriteDao.query(query);
+        assertTrue(favorites.size() > 0);
     }
 }

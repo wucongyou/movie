@@ -3,6 +3,7 @@ package com.suhang.movie.service;
 import java.util.List;
 
 import com.suhang.movie.model.Favorite;
+import com.suhang.movie.model.FavoriteQuery;
 
 /**
  * @author hang.su
@@ -14,7 +15,11 @@ public interface FavoriteService {
 
     void delete(Favorite favorite);
 
+    Favorite findById(Favorite favorite);
+
     List<Favorite> findByUserId(Long userId);
 
     List<Favorite> findByMovieId(Long movieId);
+
+    List<Favorite> query(FavoriteQuery query);
 }

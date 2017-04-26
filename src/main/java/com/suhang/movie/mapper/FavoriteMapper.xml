@@ -36,6 +36,13 @@
         WHERE user_id = #{userId} AND movie_id = #{movieId}
     </update>
 
+    <select id="findById" parameterType="favorite" resultMap="RM-FAVORITE">
+        SELECT
+        <include refid="COLS-FAVORITE"/>
+        FROM favorite
+        WHERE user_id = #{userId} AND movie_id = #{movieId} AND status = 0
+    </select>
+
     <select id="findByUserId" parameterType="long" resultMap="RM-FAVORITE">
         SELECT
         <include refid="COLS-FAVORITE"/>
@@ -49,4 +56,19 @@
         FROM favorite
         WHERE movie_id = #{movieId} AND status = 0
     </select>
+
+    <select id="query" parameterType="favoriteQuery" resultMap="RM-FAVORITE">
+        SELECT
+        <include refid="COLS-FAVORITE"/>
+        FROM favorite
+        WHERE
+        <if test="userId != null">
+            user_id=#{userId} AND movie_id > #{lastId} AND
+        </if>
+        <if test="movieId != null">
+            movie_id = #{movieId} AND user_id > #{lastId} AND
+        </if>
+        status = 0 limit #{limit}
+    </select>
+
 </mapper>

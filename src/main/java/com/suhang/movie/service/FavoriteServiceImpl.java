@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.suhang.movie.dao.FavoriteDao;
 import com.suhang.movie.model.Favorite;
+import com.suhang.movie.model.FavoriteQuery;
 import com.suhang.movie.model.RespCode;
 
 /**
@@ -38,6 +39,12 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
+    public Favorite findById(Favorite favorite) {
+        checkArgument(favorite.getUserId() != null && favorite.getMovieId() != null, "user id and movie id cannot be null");
+        return favoriteDao.findById(favorite);
+    }
+
+    @Override
     public List<Favorite> findByUserId(Long userId) {
         return favoriteDao.findByUserId(userId);
     }
@@ -45,5 +52,14 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public List<Favorite> findByMovieId(Long movieId) {
         return favoriteDao.findByMovieId(movieId);
+    }
+
+    @Override
+    public List<Favorite> query(FavoriteQuery query) {
+        checkArgument(query.getLastId() != null && query.getLastId() >= 0L, "last id cannot be null or negative");
+        checkArgument(query.getLimit() != null, "limit cannot be null");
+        checkArgument(query.getUserId() != null || query.getMovieId() != null, "user id and movie id cannot be both null");
+        checkArgument(query.getUserId() == null || query.getMovieId() == null, "user id and movie id cannot be both non null");
+        return favoriteDao.query(query);
     }
 }

@@ -3,6 +3,7 @@ package com.suhang.movie.dao;
 import java.util.List;
 
 import com.suhang.movie.model.Favorite;
+import com.suhang.movie.model.FavoriteQuery;
 
 /**
  * @author hang.su
@@ -14,8 +15,11 @@ public interface FavoriteDao {
 
     int delete(Favorite favorite);
 
+    Favorite findById(Favorite favorite);
+
     List<Favorite> findByUserId(Long userId);
 
     List<Favorite> findByMovieId(Long movieId);
 
+    List<Favorite> query(FavoriteQuery query);
 }
