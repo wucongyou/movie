@@ -18,7 +18,7 @@ import com.suhang.movie.service.MovieService;
  * @since 2017-04-26 上午9:32
  */
 @Controller
-@RequestMapping(value = "/movie/", produces = "application/json")
+@RequestMapping(value = "/movie/")
 public class MovieController {
 
     @Resource

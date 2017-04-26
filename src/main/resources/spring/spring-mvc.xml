@@ -30,6 +30,7 @@
     <mvc:annotation-driven enable-matrix-variables="true">
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json;charset=UTF-8"/>
                 <property name="objectMapper" ref="mvnObjectMapper"/>
             </bean>
         </mvc:message-converters>

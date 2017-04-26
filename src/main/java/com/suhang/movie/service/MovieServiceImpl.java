@@ -39,6 +39,8 @@ public class MovieServiceImpl implements MovieService {
         if (movie.getName() != null) {
             checkArgument(StringUtils.isNotBlank(movie.getName()), "movie name cannot be blank");
         }
+        int res = movieDao.update(movie);
+        checkState(res > 0, RespCode.FAILED_TO_UPDATE);
     }
 
     @Override
