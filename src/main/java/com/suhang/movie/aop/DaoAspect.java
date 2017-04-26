@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class DaoAspect {
 
-    private static final Logger log = LoggerFactory.getLogger(DaoAspect.class);
+    private static final Logger log = LoggerFactory.getLogger("aop");
 
     @Pointcut("execution(* com.suhang.movie.dao..*(..))")
     public void pointCut() {

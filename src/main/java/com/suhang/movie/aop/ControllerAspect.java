@@ -23,7 +23,7 @@ import com.suhang.movie.model.Resp;
 @Aspect
 public class ControllerAspect {
 
-    private static final Logger log = LoggerFactory.getLogger(ControllerAspect.class);
+    private static final Logger log = LoggerFactory.getLogger("aop");
 
     private static String getRequestMethod() {
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

@@ -4,39 +4,38 @@
     <appender name="console" class="org.apache.log4j.ConsoleAppender">
         <param name="Target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[movie]%d %-5p [%c %L] %m%n"/>
+            <param name="ConversionPattern" value="[${project.artifactId}]%d %-5p [%c %L] %m%n"/>
         </layout>
     </appender>
-
     <appender name="mainAppender" class="org.apache.log4j.DailyRollingFileAppender">
         <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
         <param name="encoding" value="UTF-8"/>
-        <param name="File" value="/data/logs/movie/main.log"/>
+        <param name="File" value="${log_dir}/${project.artifactId}/main.log"/>
         <param name="Append" value="true"/>
         <param name="Threshold" value="INFO"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[movie]%d %-5p [%c %L] %m%n"/>
+            <param name="ConversionPattern" value="[${project.artifactId}]%d %-5p [%c %L] %m%n"/>
         </layout>
     </appender>
     <appender name="aopAppender" class="org.apache.log4j.DailyRollingFileAppender">
         <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
-        <param name="File" value="/data/logs/movie/aop.log"/>
+        <param name="File" value="${log_dir}/${project.artifactId}/aop.log"/>
         <param name="Append" value="true"/>
         <param name="Threshold" value="INFO"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[movie]%d %-5p [%c %L] %m%n"/>
+            <param name="ConversionPattern" value="[${project.artifactId}]%d %-5p [%c %L] %m%n"/>
         </layout>
     </appender>
     <appender name="timeoutManagerAppender" class="org.apache.log4j.DailyRollingFileAppender">
         <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
-        <param name="File" value="/data/logs/movie/tom.log"/>
+        <param name="File" value="${log_dir}/${project.artifactId}/tom.log"/>
         <param name="Append" value="true"/>
         <param name="Threshold" value="INFO"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[movie]%d %-5p [%c %L] %m%n"/>
+            <param name="ConversionPattern" value="[${project.artifactId}]%d %-5p [%c %L] %m%n"/>
         </layout>
     </appender>
 
@@ -48,7 +47,6 @@
         <level value="debug"/>
         <appender-ref ref="mainAppender"/>
     </logger>
-
     <logger name="org.springframework.web.servlet" additivity="false">
         <level value="debug"/>
         <appender-ref ref="mainAppender"/>
@@ -57,12 +55,10 @@
         <level value="debug"/>
         <appender-ref ref="aopAppender"/>
     </logger>
-
     <logger name="main" additivity="false">
         <level value="debug"/>
         <appender-ref ref="mainAppender"/>
     </logger>
-
     <logger name="timeoutManager" additivity="false">
         <level value="debug"/>
         <appender-ref ref="timeoutManagerAppender"/>
