@@ -20,7 +20,7 @@ import com.suhang.movie.service.UserService;
  * @since 2017-04-25 下午9:34
  */
 @Controller("userController")
-@RequestMapping(value = "/user/", produces = "application/json")
+@RequestMapping(value = "/user/")
 public class UserController {
 
     @Resource

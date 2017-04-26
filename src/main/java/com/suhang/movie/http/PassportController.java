@@ -20,7 +20,7 @@ import com.suhang.movie.service.UserService;
  * @since 2017-04-25 下午8:14
  */
 @Controller("passportController")
-@RequestMapping(value = "/", produces = "application/json")
+@RequestMapping(value = "/")
 public class PassportController {
 
     @Resource

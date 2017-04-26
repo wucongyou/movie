@@ -26,7 +26,7 @@ import com.suhang.movie.util.LoginUtil;
  * @since 2017-04-26 上午10:12
  */
 @Controller
-@RequestMapping(value = "/favorite/", produces = "application/json")
+@RequestMapping(value = "/favorite/")
 public class FavoriteController {
 
     @Resource

@@ -16,7 +16,7 @@ import com.suhang.movie.util.LoginUtil;
  * @since 2017-04-26 下午12:17
  */
 @Controller
-@RequestMapping(value = "/recommend", produces = "application/json")
+@RequestMapping(value = "/recommend")
 public class RecommendController {
 
     @Resource
