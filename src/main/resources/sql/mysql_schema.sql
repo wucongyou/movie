@@ -20,7 +20,7 @@ CREATE TABLE `user` (
   ON UPDATE CURRENT_TIMESTAMP
   COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  KEY `idx_username` (`username`)
+  UNIQUE KEY `idx_user_username` (`username`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
