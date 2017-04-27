@@ -61,14 +61,17 @@
         SELECT
         <include refid="COLS-FAVORITE"/>
         FROM favorite
-        WHERE
-        <if test="userId != null">
-            user_id=#{userId} AND movie_id > #{lastId} AND
-        </if>
-        <if test="movieId != null">
-            movie_id = #{movieId} AND user_id > #{lastId} AND
-        </if>
-        status = 0 limit #{limit}
+        <where>
+            <choose>
+                <when test="userId != null">
+                    user_id=#{userId} AND movie_id > #{lastId} AND
+                </when>
+                <when test="movieId != null">
+                    movie_id = #{movieId} AND user_id > #{lastId} AND
+                </when>
+            </choose>
+            status = 0 limit #{limit}
+        </where>
     </select>
 
 </mapper>

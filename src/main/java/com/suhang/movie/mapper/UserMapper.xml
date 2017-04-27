@@ -33,12 +33,14 @@
     <update id="update" parameterType="user">
         UPDATE user
         <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
-            <if test="username != null">
-                username = #{username},
-            </if>
+            <choose>
+                <when test="id != null">
+                    id = #{id},
+                </when>
+                <when test="username != null">
+                    username = #{username},
+                </when>
+            </choose>
             <if test="password != null">
                 password = #{password},
             </if>
@@ -49,13 +51,19 @@
                 status = #{status},
             </if>
         </set>
-        WHERE
-        <if test="id != null">
-            id = #{id}
-        </if>
-        <if test="username != null">
-            username = #{username}
-        </if>
+        <where>
+            <choose>
+                <when test="id != null">
+                    id = #{id}
+                </when>
+                <when test="username != null">
+                    username = #{username}
+                </when>
+                <otherwise>
+                    id = 0
+                </otherwise>
+            </choose>
+        </where>
     </update>
 
     <update id="delete" parameterType="long">

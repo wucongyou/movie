@@ -70,10 +70,13 @@ public class FavoriteDaoTest extends BaseTestContext {
         query.setUserId(1L);
         query.setMovieId(1L);
         List<Favorite> favorites = favoriteDao.query(query);
-        assertTrue(favorites.size() > 0);
+        assertEquals(2, favorites.size());
         query.setUserId(null);
         query.setMovieId(1L);
         favorites = favoriteDao.query(query);
-        assertTrue(favorites.size() > 0);
+        assertEquals(2, favorites.size());
+        query.setMovieId(null);
+        favorites = favoriteDao.query(query);
+        assertEquals(4, favorites.size());
     }
 }

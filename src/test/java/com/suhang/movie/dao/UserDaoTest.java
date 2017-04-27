@@ -32,12 +32,20 @@ public class UserDaoTest extends BaseTestContext {
 
     @Test
     public void update() throws Exception {
-        int res = userDao.update(User.builder()
+        User user = User.builder()
             .id(1L)
+            .username("hang.su")
             .password(mockStr(64))
             .salt(mockStr(32))
-            .build());
+            .build();
+        int res = userDao.update(user);
         assertTrue(res > 0);
+        user.setId(null);
+        res = userDao.update(user);
+        assertTrue(res > 0);
+        user.setUsername(null);
+        res = userDao.update(user);
+        assertTrue(res == 0);
     }
 
     @Test
