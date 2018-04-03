@@ -14,6 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration({"classpath:/spring/spring-test.xml"})
 @Transactional(transactionManager = "transactionManager")
 @Rollback
-public abstract class BaseTestContext extends MockContext {
+public abstract class BaseSpringContextTests extends MockContext {
     
 }

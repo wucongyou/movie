@@ -8,14 +8,14 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.suhang.movie.BaseTestContext;
+import com.suhang.movie.BaseSpringContextTests;
 import com.suhang.movie.model.User;
 
 /**
  * @author hang.su
  * @since 2017-04-25 下午8:52
  */
-public class UserDaoTest extends BaseTestContext {
+public class UserDaoTest extends BaseSpringContextTests {
 
     @Resource
     private UserDao userDao;

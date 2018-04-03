@@ -1,4 +1,4 @@
-package com.suhang.movie.service;
+package com.suhang.movie.service.impl;
 
 import static com.suhang.movie.util.CheckUtil.checkArgument;
 import static com.suhang.movie.util.CheckUtil.checkState;
@@ -18,6 +18,7 @@ import com.suhang.movie.dao.MovieDao;
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.FavoriteQuery;
 import com.suhang.movie.model.RespCode;
+import com.suhang.movie.service.FavoriteService;
 
 /**
  * @author hang.su

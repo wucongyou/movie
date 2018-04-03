@@ -1,4 +1,4 @@
-package com.suhang.movie.service;
+package com.suhang.movie.service.impl;
 
 import static com.suhang.movie.util.Validator.checkUserId;
 
@@ -16,6 +16,7 @@ import com.suhang.movie.dao.FavoriteDao;
 import com.suhang.movie.dao.MovieDao;
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.Movie;
+import com.suhang.movie.service.RecommendService;
 
 /**
  * @author hang.su

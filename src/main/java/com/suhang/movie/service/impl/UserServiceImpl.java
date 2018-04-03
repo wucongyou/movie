@@ -1,4 +1,4 @@
-package com.suhang.movie.service;
+package com.suhang.movie.service.impl;
 
 import static com.suhang.movie.util.CheckUtil.checkArgument;
 import static com.suhang.movie.util.CheckUtil.checkState;
@@ -14,6 +14,7 @@ import com.suhang.movie.dao.UserDao;
 import com.suhang.movie.model.BinaryStatus;
 import com.suhang.movie.model.RespCode;
 import com.suhang.movie.model.User;
+import com.suhang.movie.service.UserService;
 import com.suhang.movie.util.PasswordUtil;
 
 /**

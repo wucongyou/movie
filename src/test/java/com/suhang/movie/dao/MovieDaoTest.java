@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.suhang.movie.BaseTestContext;
+import com.suhang.movie.BaseSpringContextTests;
 import com.suhang.movie.model.Movie;
 import com.suhang.movie.model.Query;
 
@@ -18,7 +18,7 @@ import com.suhang.movie.model.Query;
  * @author hang.su
  * @since 2017-04-25 下午9:59
  */
-public class MovieDaoTest extends BaseTestContext {
+public class MovieDaoTest extends BaseSpringContextTests {
 
     @Resource
     private MovieDao movieDao;

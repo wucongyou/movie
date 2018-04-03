@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.suhang.movie.BaseTestContext;
+import com.suhang.movie.BaseSpringContextTests;
 import com.suhang.movie.model.Favorite;
 import com.suhang.movie.model.FavoriteQuery;
 
@@ -18,7 +18,7 @@ import com.suhang.movie.model.FavoriteQuery;
  * @author hang.su
  * @since 2017-04-25 下午10:31
  */
-public class FavoriteDaoTest extends BaseTestContext {
+public class FavoriteDaoTest extends BaseSpringContextTests {
 
     @Resource
     private FavoriteDao favoriteDao;

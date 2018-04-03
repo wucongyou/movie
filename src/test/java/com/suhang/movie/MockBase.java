@@ -10,6 +10,10 @@ import org.apache.commons.lang3.RandomUtils;
  */
 public abstract class MockBase {
 
+    protected Long mockNow() {
+        return System.currentTimeMillis() / 1000L;
+    }
+
     protected String mockUUID() {
         return UUID.randomUUID().toString();
     }

@@ -1,4 +1,4 @@
-package com.suhang.movie.service;
+package com.suhang.movie.service.impl;
 
 import static com.suhang.movie.util.CheckUtil.checkState;
 
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.suhang.movie.exception.ServiceException;
 import com.suhang.movie.model.RespCode;
+import com.suhang.movie.service.PassportService;
 
 /**
  * @author hang.su
